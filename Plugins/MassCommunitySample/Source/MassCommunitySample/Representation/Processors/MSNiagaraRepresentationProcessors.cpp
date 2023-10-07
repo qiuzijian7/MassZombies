@@ -16,7 +16,7 @@ UMSNiagaraRepresentationProcessors::UMSNiagaraRepresentationProcessors()
 	//join the other representation processors in their existing group
 	ExecutionOrder.ExecuteInGroup = UE::Mass::ProcessorGroupNames::Representation;
 
-#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 3
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 4
 	ProcessingPhase = EMassProcessingPhase::FrameEnd;
 #else
 	// personal engine change where I added "PostUpdate" to the mass processing phases.

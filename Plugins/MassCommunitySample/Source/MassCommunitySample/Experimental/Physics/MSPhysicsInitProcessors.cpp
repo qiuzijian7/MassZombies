@@ -102,7 +102,7 @@ FPhysicsActorHandle InitAndAddNewChaosBody(FActorCreationParams& ActorParams, co
 	//CreateGeometryParams.ChaosTriMeshes = MakeArrayView(CylinderMeshBody->ChaosTriMeshes);
 
 	// helper that makes our geom list 		
-#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 3
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 4
 	TArray<TUniquePtr<Chaos::FImplicitObject>> Geoms;
 #else
 	TArray<Chaos::FImplicitObjectPtr> Geoms;
@@ -122,7 +122,7 @@ FPhysicsActorHandle InitAndAddNewChaosBody(FActorCreationParams& ActorParams, co
 	}
 	else
 	{
-#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 3
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 4
 	  Body_External.SetGeometry(MakeUnique<Chaos::FImplicitObjectUnion>(MoveTemp(Geoms)));
 #else
 		Body_External.MergeGeometry(MoveTemp(Geoms));
@@ -135,7 +135,7 @@ FPhysicsActorHandle InitAndAddNewChaosBody(FActorCreationParams& ActorParams, co
 		Chaos::FRigidTransform3 WorldTransform = Chaos::FRigidTransform3(Body_External.X(), Body_External.R());
 		Shape->UpdateShapeBounds(WorldTransform);
 
-#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 3
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION < 4
 		Body_External.SetShapesArray(MoveTemp(Shapes));
 #else
 		Body_External.MergeShapesArray(MoveTemp(Shapes));
@@ -212,7 +212,7 @@ void UMSPhysicsInitProcessor::Execute(FMassEntityManager& EntityManager, FMassEx
 			ActorParams.bSimulatePhysics = true;
 			CollisionEnabled = ECollisionEnabled::QueryAndPhysics;
 		};
-#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 3
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 4
 		ActorParams.bUpdateKinematicFromSimulation = Context.DoesArchetypeHaveTag<FMSUpdateKinematicFromSimulationTag>();
 #endif
 		
